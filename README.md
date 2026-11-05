@@ -17,14 +17,15 @@
 
 每段双语内容成对维护：`<span lang="zh-CN">中文</span><span lang="en">English</span>`。默认中文；右上角切换语言，并在本浏览器记住选择。共享标签如项目名不必重复。新增栏目请同时更新导航。
 
-### 填充待补充内容
+### 内容来源与更新
 
-1. About：将公开用户名替换为希望展示的姓名，并填写经本人确认的介绍及机构。
-2. Publications：用真实论文条目替换占位，建议列出标题、作者、年份、期刊/会议，以及 DOI、预印本、代码链接；不要把“未填写”写成“没有发表”。
-3. Projects：更新项目说明与链接。现有三个条目仅核实了公开仓库存在，不代表已发表成果或具体作者贡献。
-4. Blog：新增 `blog/文章名.html`，沿用样式和语言脚本，并在首页添加真实文章链接。子目录引用资源使用 `../assets/`，页面应保留 `#language` 和 `#year` 元素，或单独调整脚本。
-5. CV：上传本人确认可公开的 `assets/cv.pdf`，用 `<a class="button" href="assets/cv.pdf">Download CV / 下载简历</a>` 替换“待上传”状态。
-6. Contact：填写本人确认的学术邮箱及 Scholar / ORCID 等真实链接。当前仅链接公开 GitHub 用户主页。
+- About、Education、Contact：BIMSA 官方中英文主页（https://www.bimsa.cn/detail/xlai.html 与 https://www.bimsa.cn/zh-CN/detail/xlai.html），仅使用公开身份、教育年份、团队、学术邮箱和 Scholar 链接。计算生物学保留为研究兴趣，不声称有已发表成果。
+- Publications：两篇预印本链接至 arXiv；五篇已发表论文以 DOI 链接为准。作者顺序与题目通过公开 BIMSA、arXiv 和 Crossref 记录核实。MMM 2019 使用会议年份；不把预印本标为期刊论文。
+- Projects：三个公开仓库链接，不夸大具体贡献或软件发布状态。
+- CV：展示公开教育背景和官方学术履历入口，不提供 PDF 下载。未经本人另行授权，不添加任何非公开简历文件或内容。
+- Blog：暂未发布。新增 `blog/文章名.html` 后再添加真实文章链接；子页面资源使用 `../assets/`，并按需调整语言脚本。
+
+后续更新论文时同时维护标题、作者、年份、发表渠道和 DOI；机构或邮箱变化时更新 About、Contact 和页面描述。不要从其他同名作者自动导入论文。
 
 ## 发布与回滚
 
@@ -50,4 +51,4 @@
 
 ## English maintenance notes
 
-This is a dependency-free static site. Edit bilingual content in `index.html`, styles in `assets/style.css`, and language behavior in `assets/main.js`. Chinese and English spans use `lang="zh-CN"` and `lang="en"`. Preview with `python3 -m http.server 8000`. Keep `CNAME` unchanged and publish from the existing master branch at the repository root. Fill in verified biography, publications, CV and contact details before replacing their placeholders. The existing public repository links are verified; descriptions and claims about their outcomes have deliberately not been invented. DNS must remain unchanged. HTTPS is verified and Enforce HTTPS is enabled. Future certificate issues should be checked in authenticated GitHub Pages settings.
+This is a dependency-free static site. Edit bilingual content in `index.html`, styles in `assets/style.css`, and language behavior in `assets/main.js`. Chinese and English spans use `lang="zh-CN"` and `lang="en"`. Preview with `python3 -m http.server 8000`. Keep `CNAME` unchanged and publish from the existing master branch at the repository root. Biography, education, publications and academic contact details come from public institutional, arXiv and Crossref records. The CV section links to the public institutional profile; no private CV files are published. The existing public repository links are verified; descriptions and claims about their outcomes have deliberately not been invented. DNS must remain unchanged. HTTPS is verified and Enforce HTTPS is enabled. Future certificate issues should be checked in authenticated GitHub Pages settings.
