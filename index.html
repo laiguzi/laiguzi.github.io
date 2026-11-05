@@ -1,31 +1,73 @@
-
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Personal Homepage</title>
-  <style>
-    body {
-      max-width: 800px;
-      margin: 80px auto;
-      padding: 0 24px;
-      font-family: Arial, sans-serif;
-      line-height: 1.7;
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="laiguzi · Mathematics, artificial intelligence, graph learning, network science and computational biology.">
+  <meta name="theme-color" content="#f7f8f2">
+  <title>laiguzi — Mathematics & AI</title>
+  <link rel="canonical" href="https://laibuhui.top/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="assets/main.js" defer></script>
 </head>
 <body>
-  <h1>Welcome to My Homepage</h1>
-  <p>Research in Mathematics and Artificial Intelligence.</p>
-
-  <h2>About Me</h2>
-  <p>Introduction coming soon.</p>
-
-  <h2>Research</h2>
-  <p>Graph Learning, Network Science, and AI.</p>
-
-  <h2>Publications</h2>
-  <p>Coming soon.</p>
+<a class="skip" href="#main"><span lang="zh-CN">跳至正文</span><span lang="en">Skip to content</span></a>
+<header class="header wrap">
+  <a class="brand" href="#" aria-label="laiguzi home"><span class="brand-symbol">λ</span> laiguzi<span class="brand-dot">.</span></a>
+  <nav aria-label="Main navigation">
+    <a href="#about"><span lang="zh-CN">关于</span><span lang="en">About</span></a>
+    <a href="#research"><span lang="zh-CN">研究</span><span lang="en">Research</span></a>
+    <a href="#publications"><span lang="zh-CN">论文</span><span lang="en">Publications</span></a>
+    <a href="#projects"><span lang="zh-CN">项目</span><span lang="en">Projects</span></a>
+    <a href="#blog">Blog</a><a href="#cv">CV</a>
+    <a href="#contact"><span lang="zh-CN">联系</span><span lang="en">Contact</span></a>
+  </nav>
+  <button id="language" type="button" aria-label="Switch to English">EN ↗</button>
+</header>
+<main id="main">
+<section class="hero wrap">
+  <div class="hero-copy"><p class="eyebrow">MATHEMATICS × ARTIFICIAL INTELLIGENCE</p>
+    <h1><span lang="zh-CN">从数学结构，<br>探索智能与生命<span class="accent">。</span></span><span lang="en">Exploring intelligence<br>and life through<br>mathematical structure<span class="accent">.</span></span></h1>
+    <p class="hero-intro"><span lang="zh-CN">这里记录数学与人工智能交汇处的研究兴趣、开源代码与学习思考。</span><span lang="en">A home for research interests, open-source code, and notes at the intersection of mathematics and artificial intelligence.</span></p>
+    <div class="actions"><a class="button" href="#research"><span lang="zh-CN">探索研究方向</span><span lang="en">Explore research</span> <span aria-hidden="true">↗</span></a><a class="text-link" href="https://github.com/laiguzi">GitHub <span aria-hidden="true">↗</span></a></div>
+  </div>
+  <figure class="network">
+    <svg viewBox="0 0 460 460" role="img" aria-labelledby="graph-title graph-desc">
+      <title id="graph-title">Mathematical network</title><desc id="graph-desc">An abstract illustration of connected nodes, linking geometry, learning and living systems.</desc>
+      <defs><pattern id="dots" width="23" height="23" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#cad2c5"/></pattern></defs>
+      <rect width="460" height="460" fill="url(#dots)"/>
+      <g fill="none" stroke="#d7dfd0"><circle cx="230" cy="230" r="170"/><circle cx="230" cy="230" r="113"/><path d="M0 230H460M230 0V460"/></g>
+      <g stroke="#889b7e" stroke-width="1.4" fill="none"><path d="M85 192 143 95 257 76 348 143 380 259 302 365 170 383 79 302 85 192 201 175 257 76M143 95 201 175 348 143 283 249 380 259M85 192 157 270 79 302M201 175 157 270 170 383 239 317 302 365 283 249 239 317 157 270M201 175 283 249M348 143 380 259M157 270 283 249"/></g>
+      <g fill="#6c835b" stroke="#f7f8f2" stroke-width="5"><circle cx="85" cy="192" r="8"/><circle cx="143" cy="95" r="7"/><circle cx="257" cy="76" r="9"/><circle cx="348" cy="143" r="8"/><circle cx="380" cy="259" r="7"/><circle cx="302" cy="365" r="9"/><circle cx="170" cy="383" r="7"/><circle cx="79" cy="302" r="7"/><circle cx="157" cy="270" r="10"/><circle cx="239" cy="317" r="8"/><circle cx="283" cy="249" r="12"/></g>
+      <circle cx="201" cy="175" r="22" fill="#234b35"/><text x="201" y="182" text-anchor="middle" fill="#fff" font-size="23" font-family="Georgia,serif">λ</text>
+      <g font-family="monospace" font-size="11" fill="#52634b"><text x="18" y="35">G = (V, E)</text><text x="310" y="424">STRUCTURE → INSIGHT</text></g>
+    </svg>
+    <figcaption><span>01 / CONNECTED IDEAS</span><span aria-hidden="true">MATH · AI · LIFE</span></figcaption>
+  </figure>
+</section>
+<div class="topic-strip"><div class="wrap"><span>Mathematics</span><span>Artificial Intelligence</span><span>Graph Learning</span><span>Network Science</span><span>Computational Biology</span></div></div>
+<div class="wrap content">
+<section id="about" class="split-section"><div class="section-label"><span class="index">01</span><h2><span lang="zh-CN">关于 / About</span><span lang="en">About</span></h2></div><div><p class="lead"><span lang="zh-CN">以数学为语言，连接结构、学习与复杂系统。</span><span lang="en">Mathematics as a language for structure, learning, and complex systems.</span></p><p><span lang="zh-CN">我的研究兴趣围绕数学与人工智能展开，关注图学习、网络科学，以及它们与计算生物学的交叉。这个主页用于整理相关方向、公开代码与未来的研究记录。</span><span lang="en">My research interests span mathematics and artificial intelligence, with a focus on graph learning, network science, and their connections to computational biology. This site brings together these interests, public code, and future research notes.</span></p><p class="muted small"><span lang="zh-CN">个人介绍与所属机构待补充。</span><span lang="en">Personal biography and affiliation to be added.</span></p></div></section>
+<section id="research"><div class="section-heading"><div><p class="eyebrow">02 / RESEARCH</p><h2><span lang="zh-CN">研究兴趣</span><span lang="en">Research interests</span></h2></div><p class="muted"><span lang="zh-CN">从基础结构到交叉问题</span><span lang="en">From foundations to interdisciplinary questions</span></p></div>
+<div class="research-grid">
+<article><span class="research-icon" aria-hidden="true">∑</span><h3>Mathematics & AI</h3><p><span lang="zh-CN">探索数学结构如何帮助理解和构建学习方法。</span><span lang="en">Exploring how mathematical structures can inform our understanding and design of learning methods.</span></p><span class="tag">Foundations · Learning</span></article>
+<article><span class="research-icon" aria-hidden="true">⌘</span><h3>Graph Learning &<br>Network Science</h3><p><span lang="zh-CN">关注图上的表示学习，以及网络中的几何与结构。</span><span lang="en">Interests in representation learning on graphs, and the geometry and structure of networks.</span></p><span class="tag">Graphs · Geometry · Networks</span></article>
+<article><span class="research-icon" aria-hidden="true">⋈</span><h3>Computational<br>Biology</h3><p><span lang="zh-CN">探索数学与 AI 方法在生物数据及复杂生命系统中的可能应用。</span><span lang="en">Exploring potential applications of mathematics and AI to biological data and complex living systems.</span></p><span class="tag">Biology · Complex systems</span></article>
+</div></section>
+<section id="publications" class="split-section"><div class="section-label"><span class="index">03</span><h2><span lang="zh-CN">论文 / Publications</span><span lang="en">Publications</span></h2></div><div class="empty"><span class="status"><span lang="zh-CN">待补充</span><span lang="en">To be added</span></span><h3><span lang="zh-CN">论文列表整理中</span><span lang="en">Publication list to follow</span></h3><p><span lang="zh-CN">这里将列出经确认的论文、预印本及相关链接。</span><span lang="en">Confirmed publications, preprints, and related links will be listed here.</span></p></div></section>
+<section id="projects"><div class="section-heading"><div><p class="eyebrow">04 / OPEN SOURCE</p><h2><span lang="zh-CN">公开项目</span><span lang="en">Public repositories</span></h2></div><a class="text-link" href="https://github.com/laiguzi?tab=repositories"><span lang="zh-CN">查看全部</span><span lang="en">View all</span> ↗</a></div>
+<p class="muted small"><span lang="zh-CN">以下链接来自公开 GitHub 仓库；项目背景与成果说明待补充。</span><span lang="en">Links to public GitHub repositories; project context and outcomes are to be added.</span></p>
+<div class="project-list">
+<a href="https://github.com/laiguzi/Curvphormer"><span class="project-number">01</span><h3>Curvphormer</h3><span class="project-kind">GitHub repository</span><span aria-hidden="true">↗</span></a>
+<a href="https://github.com/laiguzi/graph-geometry"><span class="project-number">02</span><h3>graph-geometry</h3><span class="project-kind">GitHub repository</span><span aria-hidden="true">↗</span></a>
+<a href="https://github.com/laiguzi/NormalizedRicciFlow"><span class="project-number">03</span><h3>NormalizedRicciFlow</h3><span class="project-kind">GitHub repository</span><span aria-hidden="true">↗</span></a>
+</div></section>
+<section id="blog" class="split-section"><div class="section-label"><span class="index">05</span><h2>Blog & Notes</h2></div><div><h3><span lang="zh-CN">为想法留一个空间</span><span lang="en">A space for ideas in progress</span></h3><p><span lang="zh-CN">未来在这里分享数学、图学习与交叉研究的阅读笔记和思考。文章尚未发布。</span><span lang="en">Future reading notes and reflections on mathematics, graph learning, and interdisciplinary research. No posts published yet.</span></p></div></section>
+<section id="cv" class="split-section"><div class="section-label"><span class="index">06</span><h2>Curriculum Vitae</h2></div><div><h3><span lang="zh-CN">简历待上传</span><span lang="en">CV to be uploaded</span></h3><p><span lang="zh-CN">教育经历、研究经历与学术活动将在确认后更新。</span><span lang="en">Education, research experience, and academic activities will be added once confirmed.</span></p><span class="status"><span lang="zh-CN">PDF 暂未提供</span><span lang="en">PDF not yet available</span></span></div></section>
+<section id="contact" class="contact"><p class="eyebrow">07 / CONTACT</p><h2><span lang="zh-CN">让想法产生连接<span class="accent">。</span></span><span lang="en">Ideas grow through connection<span class="accent">.</span></span></h2><p><span lang="zh-CN">欢迎探索公开代码。更多学术联系方式待补充。</span><span lang="en">Explore my public code. Further academic contact details will be added here.</span></p><a class="button" href="https://github.com/laiguzi">GitHub / @laiguzi ↗</a></section>
+</div>
+</main>
+<footer class="wrap"><span>© <span id="year">2026</span> laiguzi</span><span>Mathematics · AI · Life</span><a href="#"><span lang="zh-CN">回到顶部 ↑</span><span lang="en">Back to top ↑</span></a></footer>
 </body>
 </html>
