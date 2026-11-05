@@ -30,7 +30,7 @@
 
 沿用现有 `master` 分支、仓库根目录发布。不要新建竞争的部署工作流。
 
-1. 在 GitHub Settings → Pages 核实 Source 是 **Deploy from a branch**、Branch 是 **master**、目录是 **/(root)**。本次公开 Actions 记录显示最近的 `pages build and deployment` 从 master 成功运行，但设置页面需登录才能最终确认。
+1. 在 GitHub Settings → Pages 核实 Source 是 **Deploy from a branch**、Branch 是 **master**、目录是 **/(root)**。已登录 Pages 设置确认：Deploy from a branch、master、/(root)，并确认新版部署成功（提交 435c5b5）。
 2. 提交并推送到 master 后，在 Actions 等待 `pages build and deployment` 成功。
 3. 检查 http://laibuhui.top 和 https://laibuhui.top 是否显示新主页。
 4. 回滚使用 `git revert <新提交>` 后推送，不重写远端历史。重建前基线提交为 `5c63413`。
@@ -39,7 +39,7 @@
 
 保留 CNAME，不修改 NameSilo DNS。读取时根域 A 记录为 185.199.108.153、185.199.109.153、185.199.110.153、185.199.111.153；www CNAME 为 laiguzi.github.io。
 
-检查时 HTTPS 证书校验失败，提示证书名称与 laibuhui.top 不匹配。页面重建本身不会修复证书。登录 Settings → Pages 后检查 Custom domain 为 laibuhui.top、DNS check 和证书签发状态；待证书有效后启用 Enforce HTTPS。不要关闭证书校验，不要未经确认删除域名重新绑定，不修改 DNS。若一直无法签发，按 GitHub Pages 官方排错步骤检查当前 DNS、CAA、证书状态和平台服务状态。
+2026-11-06（Europe/Berlin）已在 Pages 设置确认域名与 DNS 检查成功；证书已签发并生效。外部校验 https://laibuhui.top 返回 200，https://www.laibuhui.top 返回 301 并跳转到根域名。已启用 Enforce HTTPS。页面重建不负责证书签发，若将来出现证书问题，应先在 Settings → Pages 检查证书状态。不要关闭证书校验，不要未经确认删除域名重新绑定，不修改 DNS。若一直无法签发，按 GitHub Pages 官方排错步骤检查当前 DNS、CAA、证书状态和平台服务状态。
 
 - 官方域名文档：https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site
 - 官方 HTTPS 排错：https://docs.github.com/en/pages/getting-started-with-github-pages/securing-your-github-pages-site-with-https
@@ -50,4 +50,4 @@
 
 ## English maintenance notes
 
-This is a dependency-free static site. Edit bilingual content in `index.html`, styles in `assets/style.css`, and language behavior in `assets/main.js`. Chinese and English spans use `lang="zh-CN"` and `lang="en"`. Preview with `python3 -m http.server 8000`. Keep `CNAME` unchanged and publish from the existing master branch at the repository root. Fill in verified biography, publications, CV and contact details before replacing their placeholders. The existing public repository links are verified; descriptions and claims about their outcomes have deliberately not been invented. DNS must remain unchanged. HTTPS certificate issuance and enforcement require authenticated GitHub Pages settings checks.
+This is a dependency-free static site. Edit bilingual content in `index.html`, styles in `assets/style.css`, and language behavior in `assets/main.js`. Chinese and English spans use `lang="zh-CN"` and `lang="en"`. Preview with `python3 -m http.server 8000`. Keep `CNAME` unchanged and publish from the existing master branch at the repository root. Fill in verified biography, publications, CV and contact details before replacing their placeholders. The existing public repository links are verified; descriptions and claims about their outcomes have deliberately not been invented. DNS must remain unchanged. HTTPS is verified and Enforce HTTPS is enabled. Future certificate issues should be checked in authenticated GitHub Pages settings.
