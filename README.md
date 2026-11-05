@@ -52,3 +52,7 @@
 ## English maintenance notes
 
 This is a dependency-free static site. Edit bilingual content in `index.html`, styles in `assets/style.css`, and language behavior in `assets/main.js`. Chinese and English spans use `lang="zh-CN"` and `lang="en"`. Preview with `python3 -m http.server 8000`. Keep `CNAME` unchanged and publish from the existing master branch at the repository root. Biography, education, publications and academic contact details come from public institutional, arXiv and Crossref records. The CV section links to the public institutional profile; no private CV files are published. The existing public repository links are verified; descriptions and claims about their outcomes have deliberately not been invented. DNS must remain unchanged. HTTPS is verified and Enforce HTTPS is enabled. Future certificate issues should be checked in authenticated GitHub Pages settings.
+
+## 个人空间 /space/
+
+个人空间前端包含邮箱验证码登录、总览、学习目标和时长、收支、按月按币种预算及 CSV 导出。后端使用 Supabase Auth 与 PostgreSQL RLS，仅允许一名所有者。配置与真实权限验证步骤见 [backend/README.md](backend/README.md)。未配置时登录与私人记录保存关闭，演示只使用虚构内存数据。不要把私人记录、密钥或 CV PDF 提交到公开仓库。
