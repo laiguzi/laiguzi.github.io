@@ -10,7 +10,7 @@
 
 - `index.html`：个人介绍、研究方向、论文、项目、博客、CV、联系方式。
 - `assets/style.css`：颜色、排版、桌面与移动布局。
-- `assets/main.js`：语言切换、语言偏好保存、页脚年份。
+- `assets/main.js`：语言切换、语言偏好保存、页脚年份。修改 CSS 或 JS 后，同时更新 `index.html` 中对应资源的 `?v=` 版本值，避免访客继续使用旧缓存。
 - `assets/favicon.svg`：网站图标。
 - `CNAME`：保持唯一一行 `laibuhui.top`。
 - `.nojekyll`：直接发布静态文件，不经过 Jekyll。
