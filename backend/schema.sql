@@ -62,6 +62,12 @@ create table public.monthly_budgets (
   created_at timestamptz not null default now(),
   unique (user_id, month, currency)
 );
+-- Supabase's optional auto-RLS event trigger is admin-only, never a public RPC.
+do $$ begin
+  if to_regprocedure('public.rls_auto_enable()') is not null then
+    execute 'revoke all on function public.rls_auto_enable() from public, anon, authenticated';
+  end if;
+end $$;
 -- Grant only reading/creating/updating records. No browser delete privileges.
 do $$ declare t text; begin
   foreach t in array array['learning_goals','study_sessions','finance_entries','monthly_budgets'] loop

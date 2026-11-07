@@ -48,3 +48,7 @@
 - https://supabase.com/docs/guides/auth/auth-email-passwordless
 - https://supabase.com/docs/guides/database/postgres/row-level-security
 - https://supabase.com/docs/guides/api/api-keys
+
+### 平台安全建议
+
+已收紧 Supabase 自动创建的 `public.rls_auto_enable()`，撤销匿名及登录角色的直接执行权限，事件触发器仍由数据库管理员使用。当前采用无密码登录，不为泄漏密码检测提醒开通付费方案。数据库权限检查不代表邮件已经投递到收件箱；以本人实际登录结果为准。
