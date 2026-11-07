@@ -26,7 +26,7 @@ test('unconfigured deployment fails closed without network requests',async()=>{
   assert.equal(configured(settings),false);
   const before=globalThis.fetch;let called=false;
   globalThis.fetch=async()=>{called=true;throw new Error('must not run');};
-  try {await assert.rejects(new PrivateAPI(settings).sendCode('nobody@example.com'),/尚未连接/);assert.equal(called,false);}
+  try {await assert.rejects(new PrivateAPI(settings).sendLoginLink('nobody@example.com'),/尚未连接/);assert.equal(called,false);}
   finally {globalThis.fetch=before;}
 });
 
@@ -45,5 +45,12 @@ test('refresh is shared across concurrent reads and uses the new access token',a
     throw new Error('Unexpected request');
   };
   try{assert.deepEqual(await Promise.all([api.token(),api.token(),api.token()]),['new','new','new']);assert.equal(refreshes,1);}
+  finally{globalThis.fetch=before;}
+});
+
+test('login link tokens are validated against Auth before session is accepted',async()=>{
+  const api=new PrivateAPI({supabaseUrl:'https://example.supabase.co',publishableKey:'sb_publishable_test'});
+  const before=globalThis.fetch;globalThis.fetch=async()=>new Response('{}',{status:401});
+  try{await assert.rejects(api.acceptLoginLink('invalid','invalid',3600));assert.equal(api.session,null);}
   finally{globalThis.fetch=before;}
 });

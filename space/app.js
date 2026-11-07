@@ -1,10 +1,10 @@
-import {PrivateAPI, configured} from './api.js?v=b5fa3c5abf5f';
+import {PrivateAPI, configured} from './api.js?v=0500f9c438e9';
 import {summarize, money, weeklyMinutes, demoData, monthKey, todayKey, csvCell} from './model.js?v=bd8ba09145bf';
 const $ = id => document.getElementById(id);
 const api = new PrivateAPI();
 const emptyData = () => ({learning_goals: [], study_sessions: [], finance_entries: [], monthly_budgets: []});
 const state = {demo: false, data: emptyData(), version: 0, busy: false, view: 'overview'};
-let loginEmail = '', cooldownUntil = 0;
+let cooldownUntil = 0;
 function element(tag, text, className) {
   const e = document.createElement(tag); if (text !== undefined) e.textContent = text; if (className) e.className = className; return e;
 }
@@ -40,7 +40,7 @@ function lock() {
   for (const id of ['goals-list','study-list','ledger-body','overview-goals','overview-entries']) $(id).replaceChildren();
   for (const id of ['stat-goals','stat-time','stat-spend','income-total','expense-total','balance-total']) $(id).textContent = '—';
   $('budget-status').textContent = ''; $('budget-detail').textContent = ''; $('account-label').textContent = '';
-  $('code').value = ''; $('code-form').hidden = true; $('email-form').hidden = false;
+  $('email-form').hidden = false;
   render(); window.scrollTo(0, 0);
   document.querySelectorAll('#workspace button').forEach(b => b.disabled = false);
 }
@@ -197,22 +197,12 @@ async function logout() {
 $('logout').addEventListener('click',logout);$('end-demo').addEventListener('click',logout);
 $('email-form').addEventListener('submit',async event=>{
   event.preventDefault();if(Date.now()<cooldownUntil)return;
-  const button=$('send-code');button.disabled=true;message('正在发送验证码…',false,true);
+  const button=$('send-code');button.disabled=true;message('正在发送登录链接…',false,true);
   try {
-    loginEmail=$('email').value.trim();await api.sendCode(loginEmail);cooldownUntil=Date.now()+60000;
-    $('email-form').hidden=true;$('code-form').hidden=false;message('若该邮箱已获授权，你会收到登录验证码。',false,true);$('code').focus();
+    await api.sendLoginLink($('email').value.trim());cooldownUntil=Date.now()+60000;
+    message('若该邮箱已获授权，你会收到一次性登录链接。请检查收件箱和垃圾邮件，并在此浏览器打开。',false,true);
     setTimeout(()=>{button.disabled=!configured();},60000);
   }catch(error){message(error.message,true,true);button.disabled=!configured();}
-});
-$('change-email').addEventListener('click',()=>{$('code-form').hidden=true;$('email-form').hidden=false;message('可修改邮箱；再次发送需间隔至少 60 秒。',false,true);});
-$('code-form').addEventListener('submit',async event=>{
-  event.preventDefault();const button=$('code-form').querySelector('[type=submit]');button.disabled=true;
-  message('正在验证身份…',false,true);
-  try {
-    await api.verify(loginEmail,$('code').value.trim());
-    if(!(await api.owner())){api.clear();throw new Error('此账号没有个人空间访问权限。');}
-    const data=await api.load();state.version++;state.data=data;enter(false);message('',false,true);$('code').value='';
-  }catch(error){api.clear();message(error.message,true,true);}finally{button.disabled=false;}
 });
 $('export').addEventListener('click',()=>{
   const month=$('finance-month').value,currency=$('currency').value;
@@ -221,9 +211,18 @@ $('export').addEventListener('click',()=>{
   const url=URL.createObjectURL(blob),a=element('a');a.href=url;a.download=`${state.demo?'demo-':''}finance-${month}-${currency}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 });
 defaults();$('setup-note').hidden=configured();$('send-code').disabled=!configured();$('email').disabled=!configured();
-if(await api.restore()) {
-  try {
+// Fragment credentials are processed once and removed from history before any Auth request.
+const callback = new URLSearchParams(location.hash.slice(1));
+const hasCallback = callback.has('access_token') || callback.has('error');
+if (hasCallback) history.replaceState(null, '', location.pathname + location.search);
+try {
+  if (hasCallback) {
+    if (callback.has('error')) throw new Error('登录链接已失效，请重新发送。');
+    message('正在验证登录链接…',false,true);
+    await api.acceptLoginLink(callback.get('access_token'),callback.get('refresh_token'),callback.get('expires_in'));
+  }
+  if (hasCallback || await api.restore()) {
     if(!(await api.owner()))throw new Error('此账号没有个人空间访问权限。');
-    state.data=await api.load();enter(false);
-  }catch(error){api.clear();lock();message(error.message,true,true);}
-}
+    state.data=await api.load();enter(false);message('',false,true);
+  }
+} catch(error) {api.clear();lock();message(error.message,true,true);}

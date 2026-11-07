@@ -55,4 +55,4 @@ This is a dependency-free static site. Edit bilingual content in `index.html`, s
 
 ## 个人空间 /space/
 
-个人空间前端包含邮箱验证码登录、总览、学习目标和时长、收支、按月按币种预算及 CSV 导出。后端使用 Supabase Auth 与 PostgreSQL RLS，仅允许一名所有者。配置与真实权限验证步骤见 [backend/README.md](backend/README.md)。未配置时登录与私人记录保存关闭，演示只使用虚构内存数据。不要把私人记录、密钥或 CV PDF 提交到公开仓库。
+个人空间前端包含邮箱一次性链接登录、总览、学习目标和时长、收支、按月按币种预算及 CSV 导出。后端使用 Supabase Auth 与 PostgreSQL RLS，仅允许一名所有者。配置与真实权限验证步骤见 [backend/README.md](backend/README.md)。已连接 Supabase 并关闭公开注册，仅允许数据库中的唯一所有者账号访问。数据库权限已做实际事务测试；邮件投递与本人登录仍需实际确认。演示只使用虚构内存数据。不要把私人记录、密钥或 CV PDF 提交到公开仓库。

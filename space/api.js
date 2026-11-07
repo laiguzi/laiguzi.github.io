@@ -1,4 +1,4 @@
-import {config} from './config.js?v=e46bb41cd945';
+import {config} from './config.js?v=5ba93ca23ee6';
 const tables = new Set(['learning_goals', 'study_sessions', 'finance_entries', 'monthly_budgets']);
 const storageKey = 'laibuhui-space-session';
 export function configured(settings = config) {
@@ -46,12 +46,19 @@ export class PrivateAPI {
     }
     return this.session.access_token;
   }
-  async sendCode(email) {
-    return this.raw('/auth/v1/otp', {method: 'POST', body: JSON.stringify({email, create_user: false})});
+  async sendLoginLink(email) {
+    const redirect = 'https://laibuhui.top/space/';
+    return this.raw('/auth/v1/otp?redirect_to=' + encodeURIComponent(redirect), {
+      method: 'POST', body: JSON.stringify({email, create_user: false})
+    });
   }
-  async verify(email, token) {
-    const s = await this.raw('/auth/v1/verify', {method: 'POST', body: JSON.stringify({email, token, type: 'email'})});
-    this.remember(s);
+  async acceptLoginLink(accessToken, refreshToken, expiresIn) {
+    if (!accessToken || !refreshToken) throw new Error('登录链接不完整，请重新发送。');
+    // Validate the token with Auth before trusting any identity or retaining a session.
+    const user = await this.raw('/auth/v1/user', {}, accessToken);
+    const ttl = Math.max(60, Math.min(Number(expiresIn) || 3600, 3600));
+    this.remember({access_token: accessToken, refresh_token: refreshToken, user,
+      expires_at: Math.floor(Date.now() / 1000) + ttl});
   }
   async owner() { return this.raw('/rest/v1/rpc/space_is_owner', {method: 'POST', body: '{}'}, await this.token()); }
   async load() {

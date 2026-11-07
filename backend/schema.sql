@@ -8,9 +8,20 @@ create table private.space_owner (
   user_id uuid not null unique references auth.users(id) on delete cascade
 );
 revoke all on private.space_owner from public, anon, authenticated;
-create function public.space_is_owner() returns boolean
+alter table private.space_owner enable row level security;
+alter table private.space_owner force row level security;
+-- The privileged lookup stays outside the exposed API schema.
+create function private.space_is_owner() returns boolean
 language sql stable security definer set search_path = ''
-as $$ select exists (select 1 from private.space_owner where user_id = (select auth.uid())); $$;
+as $$ select (select auth.uid()) is not null and exists
+  (select 1 from private.space_owner where user_id = (select auth.uid())); $$;
+revoke all on function private.space_is_owner() from public, anon;
+grant usage on schema private to authenticated;
+grant execute on function private.space_is_owner() to authenticated;
+-- A non-privileged, boolean-only RPC for the login screen.
+create function public.space_is_owner() returns boolean
+language sql stable security invoker set search_path = ''
+as $$ select private.space_is_owner(); $$;
 revoke all on function public.space_is_owner() from public, anon;
 grant execute on function public.space_is_owner() to authenticated;
 create table public.learning_goals (
@@ -58,9 +69,9 @@ do $$ declare t text; begin
     execute format('alter table public.%I force row level security',t);
     execute format('revoke all on public.%I from public, anon, authenticated',t);
     execute format('grant select, insert, update on public.%I to authenticated',t);
-    execute format('create policy owner_select on public.%I for select to authenticated using ((select public.space_is_owner()) and user_id = (select auth.uid()))',t);
-    execute format('create policy owner_insert on public.%I for insert to authenticated with check ((select public.space_is_owner()) and user_id = (select auth.uid()))',t);
-    execute format('create policy owner_update on public.%I for update to authenticated using ((select public.space_is_owner()) and user_id = (select auth.uid())) with check ((select public.space_is_owner()) and user_id = (select auth.uid()))',t);
+    execute format('create policy owner_select on public.%I for select to authenticated using ((select private.space_is_owner()) and user_id = (select auth.uid()))',t);
+    execute format('create policy owner_insert on public.%I for insert to authenticated with check ((select private.space_is_owner()) and user_id = (select auth.uid()))',t);
+    execute format('create policy owner_update on public.%I for update to authenticated using ((select private.space_is_owner()) and user_id = (select auth.uid())) with check ((select private.space_is_owner()) and user_id = (select auth.uid()))',t);
     execute format('create index on public.%I (user_id, created_at desc, id desc)',t);
   end loop;
 end $$;
